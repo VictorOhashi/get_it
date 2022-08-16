@@ -786,6 +786,22 @@ class _GetItImplementation implements GetIt {
     onScopeChanged?.call(false);
   }
 
+  @override
+  Future<void> popScopeName(String name) async {
+    assert(name != _baseScopeName, 'Can`t pop base scope.');
+
+    final scope = _scopes.firstWhereOrNull((s) => s.name == name);
+    if (scope == null) {
+      return;
+    }
+
+    await scope.dispose();
+    await scope.reset(dispose: true);
+    _scopes.removeWhere((s) => s.name == scope.name);
+
+    onScopeChanged?.call(false);
+  }
+
   /// if you have a lot of scopes with names you can pop (see [popScope]) all scopes above
   /// the scope with [scopeName] including that scope
   /// Scopes are popped in order from the top

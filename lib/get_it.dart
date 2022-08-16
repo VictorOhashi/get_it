@@ -410,6 +410,8 @@ abstract class GetIt {
   /// If no scope with [name] exists, nothing is popped and `false` is returned
   Future<bool> popScopesTill(String name, {bool inclusive = true});
 
+  Future<void> popScopeName(String name);
+
   /// Returns the name of the current scope if it has one otherwise null
   /// if you are already on the baseScope it returns 'baseScope'
   String? get currentScopeName;
